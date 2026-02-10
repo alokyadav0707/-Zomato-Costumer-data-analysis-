@@ -3,13 +3,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import Logistic Regression, RandomForestClassifier
 from sklearn.metrics import classification_report, accuracy_score
 
-# Load dataset (replace 'zomato_data.csv' with the actual file path)
 data = pd.read_csv('zomato_data.csv')
 
-# Example columns: ['CustomerID', 'Age', 'OrderFrequency', 'AverageSpend', 'Satisfaction', 'PreferredCuisine']
+# columns: ['CustomerID', 'Age', 'OrderFrequency', 'AverageSpend', 'Satisfaction', 'PreferredCuisine']
 
 # Data overview
 print(data.head())
@@ -35,12 +34,19 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 model = RandomForestClassifier(random_state=42)
 model.fit(X_train, y_train)
 
+model2 = LogisticRegression(random_state=42)
+model2.fit(X_train, y_train)
+
 # Predictions
 y_pred = model.predict(X_test)
+y_pred2 = model2.predict(X_test)
 
 # Evaluation
 print("Accuracy:", accuracy_score(y_test, y_pred))
 print("Classification Report:\n", classification_report(y_test, y_pred))
+
+print("Accuracy:", accuracy_score(y_test, y_pred2))
+print("Classification Report:\n", classification_report(y_test, y_pred2))
 
 # Visualization - Example: Age vs Satisfaction
 plt.figure(figsize=(10, 6))
@@ -56,3 +62,4 @@ print("Average Age by Satisfaction Level:\n", age_satisfaction)
 processed_file = 'processed_zomato_data.csv'
 data.to_csv(processed_file, index=False)
 print(f"Processed data saved to {processed_file}")
+
